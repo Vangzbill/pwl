@@ -1,10 +1,12 @@
 <?php
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PengalamanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,18 +39,24 @@ use Illuminate\Support\Facades\Route;
 
 // Route::resource('contact', PageController::class);
 
-Route::get('/', [HomeController::class, 'home']);
+// Route::get('/', [HomeController::class, 'home']);
 
-Route::prefix('product')->group(function(){
-    Route::get('/list', [HomeController::class, 'product']);
-});
+// Route::prefix('product')->group(function(){
+//     Route::get('/list', [HomeController::class, 'product']);
+// });
 
-Route::get('/news/{key}', [HomeController::class, 'news']);
+// Route::get('/news/{key}', [HomeController::class, 'news']);
 
-Route::prefix('programs')->group(function(){
-    Route::get('/list', [HomeController::class, 'programs']);
-});
+// Route::prefix('programs')->group(function(){
+//     Route::get('/list', [HomeController::class, 'programs']);
+// });
 
-Route::get('/about', [HomeController::class, 'about']);
+// Route::get('/about', [HomeController::class, 'about']);
 
-Route::resource('contact', HomeController::class);
+// Route::resource('contact', HomeController::class);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
+
+Route::get('/profile', [ProfileController::class, 'index']);
+
+Route::get('/pengalaman', [PengalamanController::class, 'index']);
