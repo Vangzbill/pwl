@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HobbyController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PengalamanController;
@@ -63,3 +64,5 @@ Route::get('/profile', [ProfileController::class, 'index']);
 Route::get('/pengalaman', [PengalamanController::class, 'index']);
 
 Route::get('/kendaraan', [KendaraanController::class, 'index']);
+
+Route::get('/hobby', [HobbyController::class, 'index']);

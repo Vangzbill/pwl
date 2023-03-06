@@ -45,6 +45,30 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{url('hobby')}}" class="nav-link">
+                  <i class="nav-icon far fa-heart"></i>
+                  <p>
+                    Hobby
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('pert4.keluarga')}}" class="nav-link">
+                  <i class="nav-icon far fa-home"></i>
+                  <p>
+                    Keluarga
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('pert4.matkul')}}" class="nav-link">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                    Mata Kuliah
+                  </p>
+                </a>
+              </li>
             </ul>
 
       </nav>
