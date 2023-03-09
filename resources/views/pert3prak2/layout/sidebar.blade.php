@@ -54,16 +54,16 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('pert4.keluarga')}}" class="nav-link">
-                  <i class="nav-icon far fa-home"></i>
+                <a href="{{url('keluarga')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
                   <p>
                     Keluarga
                   </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('pert4.matkul')}}" class="nav-link">
-                  <i class="nav-icon far fa-image"></i>
+                <a href="{{url('matkul')}}" class="nav-link">
+                  <i class="nav-icon fas fa-book-open"></i>
                   <p>
                     Mata Kuliah
                   </p>
