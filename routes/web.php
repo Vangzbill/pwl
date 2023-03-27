@@ -3,6 +3,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HobbyController;
 use App\Http\Controllers\KeluargaController;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\MatkulController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,17 +60,17 @@ use App\Http\Controllers\MatkulController;
 // Route::get('/about', [HomeController::class, 'about']);
 
 // Route::resource('contact', HomeController::class);
+Auth::routes();
+Route::get('/logout', [LoginController::class, 'logout']);
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::middleware(['auth'])->group(function(){
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::get('/pengalaman', [PengalamanController::class, 'index']);
+    Route::get('/kendaraan', [KendaraanController::class, 'index']);
+    Route::get('/hobby', [HobbyController::class, 'index']);
+    Route::get('/keluarga', [KeluargaController::class, 'index']);
+    Route::get('/matkul', [MatkulController::class, 'index']);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
 
-Route::get('/profile', [ProfileController::class, 'index']);
-
-Route::get('/pengalaman', [PengalamanController::class, 'index']);
-
-Route::get('/kendaraan', [KendaraanController::class, 'index']);
-
-Route::get('/hobby', [HobbyController::class, 'index']);
-
-Route::get('/keluarga', [KeluargaController::class, 'index']);
-
-Route::get('/matkul', [MatkulController::class, 'index']);
