@@ -69,6 +69,14 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{url('/mahasiswa')}}" class="nav-link">
+                  <i class="fas fa-user-graduate"></i>
+                  <p>
+                      Mahasiswa
+                  </p>
+                </a>
+              </li>
             </ul>
 
       </nav>
