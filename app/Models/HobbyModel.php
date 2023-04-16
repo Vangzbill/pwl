@@ -9,4 +9,7 @@ class HobbyModel extends Model
 {
     use HasFactory;
     protected $table = 'hobby';
+    protected $fillable = [
+        'nama', 'alasan'
+    ];
 }
