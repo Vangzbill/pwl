@@ -29,7 +29,7 @@
                             <form method="POST" action="{{ url('/mahasiswa/'.$m->id ) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</button>
                             </form>
                         </td>
                     </tr>

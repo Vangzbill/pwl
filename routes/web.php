@@ -71,10 +71,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/kendaraan', [KendaraanController::class, 'index']);
     Route::get('/hobby', [HobbyController::class, 'index']);
     Route::get('/keluarga', [KeluargaController::class, 'index']);
-    Route::get('/matkul', [MatkulController::class, 'index']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::resource('/mahasiswa', MahasiswaController::class)->parameter('mahasiswa', 'id');
+    Route::resource('/matkul', MatkulController::class)->parameter('matkul', 'id');
     
 });
 

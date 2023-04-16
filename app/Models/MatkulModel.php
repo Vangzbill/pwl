@@ -9,4 +9,8 @@ class MatkulModel extends Model
 {
     use HasFactory;
     protected $table = 'matkul';
+
+    protected $fillable = [
+        'nama_matkul', 'sks'
+    ];
 }
