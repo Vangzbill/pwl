@@ -11,4 +11,9 @@ class KeluargaModel extends Model
     protected $table = 'keluarga';
     protected $primaryKey = 'nik';
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'nik', 'nama',
+        'agama', 'peran'
+    ];
 }
