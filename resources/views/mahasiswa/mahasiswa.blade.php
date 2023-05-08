@@ -9,6 +9,7 @@
                 <th>NO</th>
                 <th>NIM</th>
                 <th>Nama</th>
+                <th>Kelas</th>
                 <th>Jenis Kelamin</th>
                 <th>No HP</th>
                 <th>Action</th>
@@ -21,16 +22,21 @@
                         <td>{{++$i}}</td>
                         <td>{{$m->nim}}</td>
                         <td>{{$m->nama}}</td>
+                        <td>{{$m->kelas->nama_kelas}}</td>
                         <td>{{$m->jk}}</td>
                         <td>{{$m->hp}}</td>
                         <td>
-                            <a href="{{ url('/mahasiswa/'.$m->id.'/edit') }}" class="btn btn-sm btn-warning">Edit</a>
-
-                            <form method="POST" action="{{ url('/mahasiswa/'.$m->id ) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</button>
-                            </form>
+                            <div class="inline">
+                                <a href="{{ url('/mahasiswa/'.$m->id) }}" class="btn btn-sm btn-info">Show</a>
+                                <a href="{{ url('/mahasiswa/'.$m->id.'/edit') }}" class="btn btn-sm btn-warning">Edit</a>
+    
+                                <form method="POST" action="{{ url('/mahasiswa/'.$m->id ) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</button>
+                                </form>
+                            </div>
+                            
                         </td>
                     </tr>
                 @endforeach

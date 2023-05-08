@@ -10,9 +10,13 @@ class MahasiswaModel extends Model
     use HasFactory;
     protected $table = 'mahasiswa';
     protected $fillable = [
-        'nim', 'nama',
+        'nim', 'nama', 'kelas_id',
         'jk' , 'tempat_lahir',
         'tanggal_lahir', 'hp',
         'alamat'
     ];
+
+    public function kelas(){
+        return $this->belongsTo(KelasModel::class, 'kelas_id', 'kelas_id');
+    }
 }
