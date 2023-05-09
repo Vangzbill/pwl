@@ -26,15 +26,16 @@
                         <td>{{$m->jk}}</td>
                         <td>{{$m->hp}}</td>
                         <td>
-                            <div class="inline">
+                            <div class="">
                                 <a href="{{ url('/mahasiswa/'.$m->id) }}" class="btn btn-sm btn-info">Show</a>
                                 <a href="{{ url('/mahasiswa/'.$m->id.'/edit') }}" class="btn btn-sm btn-warning">Edit</a>
     
-                                <form method="POST" action="{{ url('/mahasiswa/'.$m->id ) }}">
+                                <form method="POST" action="{{ url('/mahasiswa/'.$m->id ) }}" class="d-inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</button>
-                                </form>
+                                </form> 
+                                <a href="{{ url('/mahasiswa/khs/'.$m->id) }}" class="btn btn-sm btn-primary">Nilai</a>
                             </div>
                             
                         </td>

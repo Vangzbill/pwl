@@ -13,6 +13,9 @@ use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatkulController;
+use App\Models\NilaiKhs;
+use App\Models\MahasiswaModel;
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -75,6 +78,13 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/matkul', MatkulController::class)->parameter('matkul', 'id');
     Route::resource('/hobby', HobbyController::class)->parameter('hobby', 'id');
     Route::resource('/keluarga', KeluargaController::class)->parameter('keluarga', 'id');
-    
+    Route::get('/mahasiswa/khs/{id}', function($id){
+        $mhs = MahasiswaModel::find($id);
+
+        $khs = NilaiKhs::where('mhs_id',$id)->get();
+        return view('mahasiswa.khs')
+            ->with('mhs', $mhs)
+            ->with('khs', $khs); 
+    });
 });
 

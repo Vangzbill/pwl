@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KelasModel;
 use App\Models\Mahasiswa;
 use App\Models\MahasiswaModel;
+use App\Models\NilaiKhs;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
@@ -67,9 +68,9 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        $mahasiswa = MahasiswaModel::find($id);
+        $mhs = MahasiswaModel::find($id);
         return view('mahasiswa.show_mhs')
-            ->with('mhs', $mahasiswa);
+            ->with('mhs', $mhs);
     }
 
     /**

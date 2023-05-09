@@ -11,6 +11,10 @@ class MatkulModel extends Model
     protected $table = 'matkul';
 
     protected $fillable = [
-        'nama_matkul', 'sks'
+        'nama_matkul', 'sks', 'dosen', 'jam'
     ];
+
+    public function nilai_khs(){
+        return $this->hasMany(NilaiKhs::class);
+    }
 }
