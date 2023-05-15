@@ -1,7 +1,7 @@
 @extends('pert3prak2.layout.template')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-2">
     <div class="row justify-content-center align-items-center">
     <div class="card" style="width: 24rem;">
     <div class="card-header">Detail Mahasiswa</div>

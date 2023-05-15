@@ -16,32 +16,32 @@ class nilai_khs extends Seeder
     {
         DB::table('nilai_khs')->insert([
             [
-                'mhs_id' => '7',
+                'mhs_id' => '12',
                 'matkul_id' => '7',
                 'nilai' => 'A'
             ],
             [
-                'mhs_id' => '7',
+                'mhs_id' => '12',
                 'matkul_id' => '8',
                 'nilai' => 'A'
             ],
             [
-                'mhs_id' => '7',
+                'mhs_id' => '12',
                 'matkul_id' => '9',
                 'nilai' => 'B+'
             ],
             [
-                'mhs_id' => '10',
+                'mhs_id' => '13',
                 'matkul_id' => '7',
                 'nilai' => 'B+'
             ],
             [
-                'mhs_id' => '10',
+                'mhs_id' => '13',
                 'matkul_id' => '8',
                 'nilai' => 'A'
             ],
             [
-                'mhs_id' => '10',
+                'mhs_id' => '13',
                 'matkul_id' => '9',
                 'nilai' => 'B+'
             ]

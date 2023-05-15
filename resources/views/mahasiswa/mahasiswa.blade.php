@@ -31,15 +31,15 @@
                         <td>{{$m->hp}}</td>
                         <td>
                             <div class="">
-                                <a href="{{ url('/mahasiswa/'.$m->id) }}" class="btn btn-sm btn-info">Show</a>
-                                <a href="{{ url('/mahasiswa/'.$m->id.'/edit') }}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{{ url('/mahasiswa/'.$m->id) }}" class="btn btn-sm btn-info fas fa-eye"></a>
+                                <a href="{{ url('/mahasiswa/'.$m->id.'/edit') }}" class="btn btn-sm btn-warning fas fa-edit"></a>
     
                                 <form method="POST" action="{{ url('/mahasiswa/'.$m->id ) }}" class="d-inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger fas fa-trash-alt" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"></button>
                                 </form> 
-                                <a href="{{ url('/mahasiswa/khs/'.$m->id) }}" class="btn btn-sm btn-primary">Nilai</a>
+                                <a href="{{ url('/mhs/khs/'.$m->id) }}" class="btn btn-sm btn-primary">Nilai</a>
                             </div>
                             
                         </td>

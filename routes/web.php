@@ -84,7 +84,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/matkul', MatkulController::class)->parameter('matkul', 'id');
     Route::resource('/hobby', HobbyController::class)->parameter('hobby', 'id');
     Route::resource('/keluarga', KeluargaController::class)->parameter('keluarga', 'id');
-    Route::get('/mahasiswa/khs/{id}', function($id){
+    Route::get('/mhs/khs/{id}', function($id){
         $mhs = MahasiswaModel::find($id);
 
         $khs = NilaiKhs::where('mhs_id',$id)->get();
@@ -93,6 +93,7 @@ Route::middleware(['auth'])->group(function(){
             ->with('khs', $khs); 
     });
     Route::resource('/articles', ArticleController::class);
+    Route::get('/mahasiswa/cetak_khs/{id}', [MahasiswaController::class, 'cetak_pdf']);
     
 });
 
