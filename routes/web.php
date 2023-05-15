@@ -86,5 +86,6 @@ Route::middleware(['auth'])->group(function(){
             ->with('mhs', $mhs)
             ->with('khs', $khs); 
     });
+    Route::resource('/articles', ArticleController::class);
 });
 
