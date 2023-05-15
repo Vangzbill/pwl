@@ -13,7 +13,7 @@ class MahasiswaModel extends Model
         'nim', 'nama', 'kelas_id',
         'jk' , 'tempat_lahir',
         'tanggal_lahir', 'hp',
-        'alamat'
+        'alamat', 'foto'
     ];
 
     public function kelas(){

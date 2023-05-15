@@ -2,7 +2,7 @@
 
 @section('content')
     <h2>Data Mahasiswa</h2>
-    <form method="POST" action="{{ $url_form }}">
+    <form method="POST" action="{{ $url_form }}" enctype="multipart/form-data">
         @csrf
         {!!(isset($mhs))? method_field('PUT') : '' !!}
         <div class="form-group">
@@ -23,6 +23,14 @@
         </div>
         
         <div class="form-group">
+            <label>Foto</label>
+            <input class="form-control" name="foto" type="file" required="required">
+            @error('foto')
+            <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+
+        <div class="form-group">
             <label for="kelas">Kelas</label>
             <select class="form-control @error('kelas_id') 'is-invalid' @enderror" name="kelas_id">
                 @foreach($kelas as $kls)
@@ -33,6 +41,8 @@
             <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
+
+
         
 
         <div class="form-group">

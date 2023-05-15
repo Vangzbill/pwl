@@ -50,6 +50,7 @@ class ArticleController extends Controller
         return 'Artikel Berhasil Disimpan';
     }
 
+    
     /**
      * Display the specified resource.
      *

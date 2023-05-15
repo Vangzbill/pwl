@@ -7,6 +7,7 @@ use App\Models\Mahasiswa;
 use App\Models\MahasiswaModel;
 use App\Models\NilaiKhs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -47,6 +48,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'nim' => 'required|string|max:10|unique:mahasiswa,nim',
             'nama' => 'required|string|max:50',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'kelas_id' => 'required',
             'jk' => 'required|in:L,P',
             'tempat_lahir' => 'required|string|max:50',
@@ -55,7 +57,19 @@ class MahasiswaController extends Controller
             'alamat' => 'required|string|max:255',
         ]);
 
-        MahasiswaModel::create($request->all());
+        $image_name = $request->file('foto')->store('images', 'public');
+
+        MahasiswaModel::create([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'foto' => $image_name,
+            'kelas_id' => $request->kelas_id,
+            'jk' => $request->jk,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'hp' => $request->hp,
+            'alamat' => $request->alamat,
+        ]);
         return redirect('mahasiswa')
             ->with('success', 'Mahasiswa Berhasil Ditambahkan');
     }
@@ -101,6 +115,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'nim' => 'required|string|max:10|unique:mahasiswa,nim,'.$id,
             'nama' => 'required|string|max:50',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // 'nullable' agar tidak error saat edit data tanpa mengganti '
             'kelas_id' => 'required',
             'jk' => 'required|in:L,P',
             'tempat_lahir' => 'required|string|max:50',
@@ -109,7 +124,19 @@ class MahasiswaController extends Controller
             'alamat' => 'required|string|max:255',
         ]);
       
-        MahasiswaModel::where('id', $id)->update($request->except('_token', '_method'));
+        $image_name = $request->file('foto')->store('images', 'public');
+        
+        MahasiswaModel::where('id', $id)->update([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'foto' => $image_name,
+            'kelas_id' => $request->kelas_id,
+            'jk' => $request->jk,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'hp' => $request->hp,
+            'alamat' => $request->alamat,
+        ]);
         return redirect('mahasiswa')
             ->with('success', 'Data Berhasil Diedit');
     }
