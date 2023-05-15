@@ -8,6 +8,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HobbyController;
 use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\PageController;
+use App\Models\Article;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\KendaraanController;
@@ -73,7 +75,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/pengalaman', [PengalamanController::class, 'index']);
     Route::get('/kendaraan', [KendaraanController::class, 'index']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+    Route::get('/article/cetak_pdf', function(){
+        $articles = Article::all();
+        $pdf = Pdf::loadview('articles.articles_pdf', ['articles'=>$articles]);
+        return $pdf->stream();
+    });
     Route::resource('/mahasiswa', MahasiswaController::class)->parameter('mahasiswa', 'id');
     Route::resource('/matkul', MatkulController::class)->parameter('matkul', 'id');
     Route::resource('/hobby', HobbyController::class)->parameter('hobby', 'id');
@@ -87,5 +93,6 @@ Route::middleware(['auth'])->group(function(){
             ->with('khs', $khs); 
     });
     Route::resource('/articles', ArticleController::class);
+    
 });
 
