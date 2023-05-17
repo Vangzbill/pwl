@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('mahasiswa', function(Blueprint $table){
             $table->string('foto')->after('nama')->nullable();
+            
         });
     }
 
