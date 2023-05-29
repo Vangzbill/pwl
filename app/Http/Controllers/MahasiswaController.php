@@ -9,6 +9,8 @@ use App\Models\NilaiKhs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class MahasiswaController extends Controller
 {
@@ -19,9 +21,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mhs = MahasiswaModel::with('kelas')->get();
-        return view('mahasiswa.mahasiswa')
-            ->with('mhs', $mhs);
+        return view('mahasiswa.mahasiswa');
     }
     
 
@@ -45,17 +45,43 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
+        $rule = [
+            'nim' => 'required|string|max:10|unique:mahasiswa,nim',
+            'nama' => 'required|string|max:50',
+            'hp' => 'required|digits_between:6,15',
+        ];
+
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'modal_close' => false, // jika true maka modal akan tertutup
+                'message' => 'Data gagal ditambahkan. ' .$validator->errors()->first(),
+                'data' => $validator->errors()
+            ]);
+        }
+
+        $mhs = MahasiswaModel::create($request->all());
+        return response()->json([
+            'status' => ($mhs),
+            'message' => ($mhs)? 'Data berhasil ditambahkan' : 'Data gagal ditambahkan',
+            'data' => null
+        ]);
+    }
+
+    public function store_old(Request $request)
+    {
        
         $request->validate([
             'nim' => 'required|string|max:10|unique:mahasiswa,nim',
             'nama' => 'required|string|max:50',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'kelas_id' => 'required',
-            'jk' => 'required|in:L,P',
-            'tempat_lahir' => 'required|string|max:50',
-            'tanggal_lahir' => 'required|date',
+            // 'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            // 'kelas_id' => 'required',
+            // 'jk' => 'required|in:L,P',
+            // 'tempat_lahir' => 'required|string|max:50',
+            // 'tanggal_lahir' => 'required|date',
             'hp' => 'required|digits_between:6,15',
-            'alamat' => 'required|string|max:255',
+            // 'alamat' => 'required|string|max:255',
         ]);
 
         $image_name = $request->file('foto')->store('images', 'public');
@@ -63,13 +89,13 @@ class MahasiswaController extends Controller
         MahasiswaModel::create([
             'nim' => $request->nim,
             'nama' => $request->nama,
-            'foto' => $image_name,
-            'kelas_id' => $request->kelas_id,
-            'jk' => $request->jk,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
+            // 'foto' => $image_name,
+            // 'kelas_id' => $request->kelas_id,
+            // 'jk' => $request->jk,
+            // 'tempat_lahir' => $request->tempat_lahir,
+            // 'tanggal_lahir' => $request->tanggal_lahir,
             'hp' => $request->hp,
-            'alamat' => $request->alamat,
+            // 'alamat' => $request->alamat,
         ]);
         return redirect('mahasiswa')
             ->with('success', 'Mahasiswa Berhasil Ditambahkan');
@@ -81,12 +107,12 @@ class MahasiswaController extends Controller
      * @param  \App\Models\MahasiswaModel  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $mhs = MahasiswaModel::find($id);
-        return view('mahasiswa.show_mhs')
-            ->with('mhs', $mhs);
-    }
+    // public function show($id)
+    // {
+    //     $mhs = MahasiswaModel::find($id);
+    //     return view('mahasiswa.show_mhs')
+    //         ->with('mhs', $mhs);
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -97,10 +123,10 @@ class MahasiswaController extends Controller
     public function edit($id)
     {
         $mahasiswa = MahasiswaModel::find($id);
-        $kelas = KelasModel::all();
+        // $kelas = KelasModel::all();
         return view('mahasiswa.create_mhs')
             ->with('mhs', $mahasiswa)
-            ->with('kelas', $kelas)
+            // ->with('kelas', $kelas)
             ->with('url_form', url('/mahasiswa/'.$id));
     }
 
@@ -112,6 +138,35 @@ class MahasiswaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    {
+        $rule = [
+            'nim' => 'required|string|max:10|unique:mahasiswa,nim,'.$id,
+            'nama' => 'required|string|max:50',
+            'hp' => 'required|digits_between:6,15',
+        ];
+
+        $validator = Validator::make($request->all(), $rule);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'modal_close' => false,
+                'message' => 'Data gagal diedit. ' .$validator->errors()->first(),
+                'data' => $validator->errors()
+            ]);
+        }
+
+        $mhs = MahasiswaModel::where('id', $id)->update($request->except('_token', '_method'));
+
+        return response()->json([
+            'status' => ($mhs),
+            'modal_close' => $mhs,
+            'message' => ($mhs)? 'Data berhasil diedit' : 'Data gagal diedit',
+            'data' => null
+        ]);
+    }
+
+
+    public function update_old(Request $request, $id)
     {
         $request->validate([
             'nim' => 'required|string|max:10|unique:mahasiswa,nim,'.$id,
@@ -160,5 +215,11 @@ class MahasiswaController extends Controller
         $khs = NilaiKhs::where('mhs_id', $id)->get();
         $pdf = PDF::loadView('mahasiswa.cetak_pdf', ['mhs' => $mhs, 'khs' => $khs]);
         return $pdf->stream();
+    }
+    
+    public function data(){
+       $data = MahasiswaModel::selectRaw('id, nim, nama, hp');
+
+       return DataTables::of($data)->addIndexColumn()->make(true);
     }
 }

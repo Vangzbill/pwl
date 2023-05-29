@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function(){
         return $pdf->stream();
     });
     Route::resource('/mahasiswa', MahasiswaController::class)->parameter('mahasiswa', 'id');
+    Route::post('/mahasiswa/data', [MahasiswaController::class, 'data']);
     Route::resource('/matkul', MatkulController::class)->parameter('matkul', 'id');
     Route::resource('/hobby', HobbyController::class)->parameter('hobby', 'id');
     Route::resource('/keluarga', KeluargaController::class)->parameter('keluarga', 'id');
